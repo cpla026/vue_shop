@@ -1,0 +1,20 @@
+server:
+  port: 8090
+  servlet:
+    path: /shop
+
+
+spring:
+  application:
+    name: shop
+
+  datasource:
+    url: jdbc:mysql://39.97.122.60:9001/shop?useSSL=false&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+mybatis:
+  type-aliases-package: com.coolron.shop.*.domain
+  mapper-locations: classpath:mapping/user/*.xml

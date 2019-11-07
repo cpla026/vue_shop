@@ -1,0 +1,24 @@
+.DS_Store
+./shop_web/node_modules
+./shop_web-old
+./shop_web/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+./shop_server/.idea
+./shop_server/shop_server.iml
+./shop_server/target
+./shop_web/.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
