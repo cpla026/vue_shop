@@ -4,12 +4,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import '@/plugins/element.js'
-
 // 导入全局样式表
 import '@/assets/css/global.css'
 // 导入 axios
 import axios from 'axios'
-// 请求根路径 配合config 中 proxyTable 看
+// 请求根路径 结合 config/index.js 中 proxyTable 看
 axios.defaults.baseURL = "/shop/";
 Vue.prototype.$http = axios
 
