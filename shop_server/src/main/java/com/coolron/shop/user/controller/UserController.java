@@ -6,7 +6,9 @@ import com.coolron.shop.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: xf
@@ -28,7 +30,9 @@ public class UserController {
         if(user.getPassword().length() < 4){
             return ApiResult.build(400,"密码或用户名不对");
         }
-        return ApiResult.ok(user);
+        Map map = new HashMap<String, String>();
+        map.put("token", "How`s it going? Ron!");
+        return ApiResult.ok(map);
     }
 
     @GetMapping("/list")

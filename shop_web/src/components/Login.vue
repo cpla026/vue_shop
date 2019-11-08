@@ -34,7 +34,7 @@ export default {
     return {
       loginForm: {
         username: 'ron',
-        password: '123'
+        password: '123456'
       },
       // 表单验证规则
       rules: {
@@ -63,7 +63,23 @@ export default {
         if (!valid) return false
         // 验证通过发起http请求
         this.$http.post('user/login', this.loginForm).then(result => {
-          console.log(result)
+          console.log(result);
+          if(result.data.status !== 200){
+              // return this.$message.error('错了哦，这是一条错误消息');
+              return this.$message({
+                message: '警告哦，这是一条警告消息',
+                type: 'warning'
+              })
+          }
+          // this.$message({
+          //   message: '恭喜你，登录成功',
+          //   type: 'success'
+          // })
+          this.$message.success('登录成功')
+          // 将登录成功后的 token 保存到 sessionStorage 中
+          window.sessionStorage.setItem('token', result.data.data.token)
+          // 通过编程式导航跳转到后台主页
+          this.$router.push('/home')
         })
       })
     }
