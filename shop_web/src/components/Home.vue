@@ -10,12 +10,12 @@ export default {
   methods: {
     logout() {
       // 清除token
-      window.sessionStorage.clear();
+      window.sessionStorage.clear()
       // 跳转到登录业
-      this.$router.push("/login");
+      this.$router.push('/login')
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

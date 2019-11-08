@@ -3,7 +3,7 @@
     <div class="login-box">
       <!-- 图标区域 -->
       <div class="avatar_box">
-        <img src="../assets/logo.png">
+        <img src="../assets/logo.png" />
       </div>
       <!-- 登录表单区域
           rules：校对规则
@@ -11,8 +11,8 @@
       -->
       <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginFormRef">
         <!-- 用户名 -->
-        <el-form-item label-width="0px" prop="username" >
-          <el-input prefix-icon="el-icon-s-custom" v-model="loginForm.username" ></el-input>
+        <el-form-item label-width="0px" prop="username">
+          <el-input prefix-icon="el-icon-s-custom" v-model="loginForm.username"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item label-width="0px" prop="password">
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       loginForm: {
         username: 'ron',
@@ -51,25 +51,25 @@ export default {
   },
   methods: {
     // 重置表单
-    resetForm (loginFormRef) {
+    resetForm(loginFormRef) {
       console.log(loginFormRef)
       // this.$refs[loginFormRef].resetFields()
       this.$refs.loginFormRef.resetFields()
     },
-    login () {
+    login() {
       // 表单预验证
-      this.$refs.loginFormRef.validate((valid) => {
+      this.$refs.loginFormRef.validate(valid => {
         // console.log(valid)
         if (!valid) return false
         // 验证通过发起http请求
         this.$http.post('user/login', this.loginForm).then(result => {
-          console.log(result);
-          if(result.data.status !== 200){
-              // return this.$message.error('错了哦，这是一条错误消息');
-              return this.$message({
-                message: '警告哦，这是一条警告消息',
-                type: 'warning'
-              })
+          console.log(result)
+          if (result.data.status !== 200) {
+            // return this.$message.error('错了哦，这是一条错误消息');
+            return this.$message({
+              message: '警告哦，这是一条警告消息',
+              type: 'warning'
+            })
           }
           // this.$message({
           //   message: '恭喜你，登录成功',

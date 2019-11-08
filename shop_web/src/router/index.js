@@ -23,13 +23,13 @@ const router = new VueRouter({
  */
 router.beforeEach((to, from, next) => {
   // 登录也直接放行
-  if(to.path === '/login') return next();
+  if (to.path === '/login') return next()
   // 根据token 做下一步操作
-  const usertoken = window.sessionStorage.getItem('token');
+  const usertoken = window.sessionStorage.getItem('token')
   // token 为空
-  if(!usertoken) return next('/login');
+  if (!usertoken) return next('/login')
   // 放行
-  next();
+  next()
 })
 
 export default router

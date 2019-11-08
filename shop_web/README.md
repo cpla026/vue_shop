@@ -77,6 +77,28 @@ methods: {
 }
 ```
 
+#### 其他:
+
+1 代码格式化 (ESLint)
+
+```json
+.prettierrc 文件
+// 去除分号,使用单引号的配置
+{
+    "semi": false,
+    "singleQuote": true
+}
+.eslintrc.js 文件
+// 函数括号前空格的处理 添加
+rules: {
+	'space-before-function-paren': 0
+}
+```
+
+
+
+
+
 
 
 
