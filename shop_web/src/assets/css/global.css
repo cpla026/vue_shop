@@ -4,3 +4,18 @@ html, body, #app {
     margin: 0;
     padding: 0;
 }
+/* 面包屑导航区 */
+.el-breadcrumb {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+/* 卡片 */
+.el-card {
+    box-shadow: 0 1px 1px rgb(0, 0, 0, 0.15) !important;
+}
+/* 表格距离上下边距 */
+.el-table {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
+}

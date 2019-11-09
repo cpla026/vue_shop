@@ -63,7 +63,7 @@ export default {
         if (!valid) return false
         // 验证通过发起http请求
         this.$http.post('user/login', this.loginForm).then(result => {
-          console.log(result)
+          // console.log(result)
           if (result.data.status !== 200) {
             // return this.$message.error('错了哦，这是一条错误消息');
             return this.$message({
