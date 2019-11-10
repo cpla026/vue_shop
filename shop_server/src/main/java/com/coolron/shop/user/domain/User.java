@@ -2,22 +2,24 @@ package com.coolron.shop.user.domain;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class User {
-    private String id;
+    private Integer id;
 
     private String username;
 
     private String password;
 
-    private String phone;
+    private String mobile;
 
     private String email;
 
-    private String name;
+    private Date create_time;
 
-    private String status;
+    private Boolean mg_state;
 
-    private String sex;
+    private String role_name;
 
 }

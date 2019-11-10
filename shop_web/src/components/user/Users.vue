@@ -46,14 +46,14 @@
                 <!-- 对行的操作需要拿到对应列的id 使用作用域插槽 -->
                 <template slot-scope="scope"> 
                     <!-- 修改按钮 -->
-                    <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+                    <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)"></el-button>
                     <!-- 给按钮添加提示 -->
                     <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
                         <!-- 分配角色 -->
                         <el-button type="warning" icon="el-icon-share" size="mini"></el-button>
                     </el-tooltip>
                     <!-- 删除按钮 -->
-                    <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+                    <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -68,7 +68,7 @@
         <!-- 添加用户的弹框 -->
         <!-- :visible.sync 对话框的显示与否 -->
         <!-- :before-close 对护框关闭之前触发的事件 -->
-        <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%" :before-close="handleClose" @close="addDialogClose">
+        <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%" @closed="addDialogClose">
             <!-- 主题区域 -->
             <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px" class="demo-ruleForm">
                 <!-- 用户名 -->
@@ -95,7 +95,31 @@
             <span slot="footer" class="dialog-footer">
                 <el-button @click="resetForm('addFormRef')">重置</el-button>
                 <el-button @click="addDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="addUser">确 定</el-button>
+                <el-button type="primary" @click="addUser('addFormRef')">确 定</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- 修改用户的对话框 -->
+        <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClose">
+            <!-- 主题区域 -->
+            <el-form :model="editForm" :rules="addFormRules" ref="editFormRef" label-width="70px">
+                
+                <!-- 用户名 -->
+                <el-form-item label="用户名" >
+                    <el-input v-model="editForm.username" disabled=""></el-input>
+                </el-form-item>
+                <!-- 邮箱 -->
+                <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="editForm.email"></el-input>
+                </el-form-item>
+                <!-- 电话 -->
+                <el-form-item label="电话" prop="mobile">
+                    <el-input v-model="editForm.mobile"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="editUser('editFormRef')">确 定</el-button>
             </span>
         </el-dialog>
 
@@ -103,6 +127,7 @@
   </div>
 </template>
 <script>
+import { async } from 'q';
 export default {
     data() {
         // 自定义校验规则校验邮箱
@@ -139,10 +164,10 @@ export default {
             addDialogVisible: false,
             // 添加用户的表单数据
             addForm: {
-                username: 'Ron',
-                password: '123456',
-                email: 'swron@163.com',
-                mobile: '13799999999'
+                username: '',
+                password: '',
+                email: '',
+                mobile: ''
             },
             // 表单验证规则
             addFormRules: {
@@ -162,6 +187,16 @@ export default {
                     { required: true, message: '请输入邮箱', trigger: 'blur' },
                     { validator: checkMobil, trigger: 'blur' }
                 ]
+            },
+            // 修改用户dialog
+            editDialogVisible: false,
+            // 编辑用户的表单
+            editForm: {
+                id: '',
+                username: '',
+                password: '',
+                email: '',
+                mobile: ''
             }
         }
     },
@@ -172,9 +207,9 @@ export default {
         // 获取用户列表
         async getUserList() {
             await this.$http.get('user/list', { params:this.queryInfo }).then(result => {
-                // console.log(result)
                 if(result.data.status === 200) {
-                    return this.userList = result.data.data;
+                    this.total = result.data.data.totalCount
+                    return this.userList = result.data.data.pageList;
                 }
                 this.$message.error('请求出错:' + result.data.msg)
             })
@@ -193,9 +228,7 @@ export default {
         },
         // 监听switch 状态的改变
         async userStateChange(userInfo) {
-            // console.log(userInfo)
             await this.$http.put(`user/update/${userInfo.id}/${userInfo.mg_state}`).then(result => {
-                console.log(result)
                 if(result.data.status === 200) {
                     return this.$message.success('修改成功')
                 }
@@ -205,14 +238,14 @@ export default {
             })
         },
         // 添加用户
-        addUser() {
+        addUser(addFormRef) {
             // 提交表单前校验表单
-            this.$refs.addFormRef.validate(async valid => {
-                if(!valid) return
+            // this.$refs.addFormRef.validate(valid => {
+            this.$refs[addFormRef].validate((valid) => {
+                if(!valid) return false
                 // 校验通过 添加用户
-                await this.$http.post('user/save', this.addForm).then(result => {
+                this.$http.post('user/save', this.addForm).then(result => {
                     if(result.data.status === 200) {
-                        console.log(result)
                         this.$message.success('添加用户成功')
                         // 关闭对话框
                         this.addDialogVisible = false
@@ -229,17 +262,57 @@ export default {
         // 对话框关闭触发的事件
         handleClose (){
             this.addDialogVisible = false
-            // console.log('>>>>>>> 关闭对话框 >>>>')
         },
         // 重置表单
         resetForm(addFormRef) {
-            // console.log(addFormRef)
-            // this.$refs[addFormRef].resetFields()
-            this.$refs.addFormRef.resetFields()
+            this.$refs[addFormRef].resetFields()
+            // this.$refs.addFormRef.resetFields()
         },
         // 关闭表单的操作
         addDialogClose() {
             this.$refs.addFormRef.resetFields()
+        },
+        // 修改用户触发 弹框
+        async showEditDialog(id) {
+            console.log(id)
+            await this.$http.get('user/' + id).then(result => {
+                if(result.data.status === 200) {
+                    return this.editForm = result.data.data
+                }
+                this.$message.error('请求出错')
+            })
+            this.editDialogVisible = true
+        },
+        editDialogClose() {
+            this.editForm = {}
+            this.$refs.editFormRef.resetFields()
+        },
+        // 修改用户请求接口
+        editUser(editFormRef) {
+            this.$refs[editFormRef].validate(async (valid) => {
+                if(!valid) return this.$message.warning('表单校验失败')
+                await this.$http.post('user/update', this.editForm).then(result => {
+                    if(result.data.status === 200) {
+                        this.$message.success('修改用户成功')
+                        // 关闭对话框
+                        this.editDialogVisible = false
+                        // 刷新页面
+                        this.getUserList()
+                        return
+                    }
+                    this.$message.error('请求出错:' + result.data.msg)
+                })
+            })
+        },
+        // 删除用户
+        async deleteUser(id) {
+            await this.$http.delete('user/' + id).then(result => {
+                if (result.data.status === 200) {
+                    this.getUserList()
+                    return this.$message.success('删除成功')
+                }
+                this.$message.error('删除失败')
+            })
         }
 
     }

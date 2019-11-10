@@ -1,14 +1,14 @@
 package com.coolron.shop.user.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.coolron.shop.common.utils.ApiResult;
+import com.coolron.shop.common.utils.PageBean;
 import com.coolron.shop.user.domain.User;
+import com.coolron.shop.user.domain.UserForm;
 import com.coolron.shop.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,9 +41,8 @@ public class UserController {
             @RequestParam(value = "query", required = false) String query,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
             @RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum){
-        //List<User> list = userService.list();
 
-        String json = "[\n" +
+        /* String json = "[\n" +
                 "    {\n" +
                 "        \"create_time\": 1486720211,\n" +
                 "        \"email\": \"adsfad@qq.com\",\n" +
@@ -63,27 +62,55 @@ public class UserController {
                 "        \"username\": \"ron\"\n" +
                 "    }\n" +
                 "]";
-        return ApiResult.ok(JSON.parseObject(json,List.class));
+        return ApiResult.ok(JSON.parseObject(json,List.class));*/
+
+
+        Map<String, Object> page = new HashMap<String, Object>(4);
+        page.put("begin", (pageNum - 1) * pageSize);     // 查询起始值
+        page.put("pageSize", pageSize);                 // 当前页记录数
+        page.put("username", query);                    // username 模糊查询
+
+        // 分页查询
+        PageBean<User> pageBean = userService.pageList(page, pageSize);
+        pageBean.setCurrpage(pageNum); // 当前页
+        pageBean.setPageSize(pageSize); // 每页记录数
+
+        return ApiResult.ok(pageBean);
+
     }
 
     @GetMapping("/{id}")
-    public ApiResult getInfo(@PathVariable(value = "id") String id){
+    public ApiResult getInfo(@PathVariable(value = "id") Integer id){
         User user = userService.getInfo(id);
         return ApiResult.ok(user);
     }
-    @PostMapping("/save")
-    public ApiResult save(@RequestBody Map map){
+    @DeleteMapping("/{id}")
+    public ApiResult delete(@PathVariable(value = "id") Integer id){
+        int i = userService.delete(id);
+        return ApiResult.ok(i);
+    }
 
-        return ApiResult.ok(map);
+    @PostMapping("/save")
+    public ApiResult save(@RequestBody UserForm userForm){
+
+        int i = userService.save(userForm);
+        return ApiResult.ok(i);
     }
 
     @PutMapping("update/{id}/{mg_state}")
-    public ApiResult update(@PathVariable(value = "id") String id,
+    public ApiResult update(@PathVariable(value = "id") Integer id,
                              @PathVariable(value = "mg_state") Boolean state){
-        Map map = new HashMap<String, Object>(2);
-        map.put("id", id);
-        map.put("mg_state", state);
-        map.put("status", 200);
-        return ApiResult.ok(map);
+        User user = new User();
+        user.setId(id);
+        user.setMg_state(state);
+
+        int i = userService.update(user);
+        return ApiResult.ok(i);
+    }
+
+    @PostMapping("update")
+    public ApiResult updateUser(@RequestBody User user){
+        int i = userService.update(user);
+        return ApiResult.ok(i);
     }
 }
