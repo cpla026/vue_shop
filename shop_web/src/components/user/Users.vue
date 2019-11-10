@@ -157,7 +157,7 @@ export default {
             queryInfo: {
                 query: '',
                 pageNum: 1,
-                pageSize: 2
+                pageSize: 3
             },
             total: 0,
             // 控制添加用户对话框的显示与隐藏
@@ -306,13 +306,25 @@ export default {
         },
         // 删除用户
         async deleteUser(id) {
-            await this.$http.delete('user/' + id).then(result => {
-                if (result.data.status === 200) {
-                    this.getUserList()
-                    return this.$message.success('删除成功')
-                }
-                this.$message.error('删除失败')
+
+            // 删除前提示
+            await this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(result => {
+                this.$http.delete('user/' + id).then(result => {
+                    if (result.data.status === 200) {
+                        this.getUserList()
+                        return this.$message.success('删除成功')
+                    }
+                    this.$message.error('删除失败')
+                })
+
+            }).catch(result => {
+                 this.$message({ type: 'info', message: '已取消删除' })
             })
+
         }
 
     }

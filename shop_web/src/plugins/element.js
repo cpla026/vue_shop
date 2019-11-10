@@ -7,7 +7,7 @@ import { Container, Header, Aside, Main } from 'element-ui'
 // 菜单组件
 import { Menu, Submenu, MenuItem, MenuItemGroup, Breadcrumb, BreadcrumbItem } from 'element-ui'
 // 卡片 列表相关
-import { Card, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog } from 'element-ui'
+import { Card, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Button)
@@ -37,4 +37,6 @@ Vue.use(Tooltip)
 Vue.use(Pagination)
 // 弹框
 Vue.use(Dialog)
+// 消息弹框
 Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
