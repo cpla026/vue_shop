@@ -30,7 +30,7 @@
                 <!-- 字段列 -->
                 <el-table-column prop="roleName" label="角色名称" ></el-table-column>
                 <el-table-column prop="roleDesc" label="角色描述" ></el-table-column>
-                <el-table-column label="操作" width="300px">
+                <el-table-column label="操作" width="350px">
                     <!-- 对行的操作需要拿到对应列的id 使用作用域插槽 -->
                     <template slot-scope="scope"> 
                         <!-- 修改按钮 -->

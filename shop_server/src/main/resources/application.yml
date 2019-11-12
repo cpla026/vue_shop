@@ -12,7 +12,6 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
 
-
 mybatis:
   type-aliases-package: com.coolron.shop.*.domain
-  mapper-locations: classpath:mapping/user/*.xml
+  mapper-locations: classpath:mapping/*/*.xml

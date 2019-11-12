@@ -26,4 +26,5 @@ public interface UserMapper {
     Integer findTotalCount(@Param("page") Map<String, Object> page);
 
     List<User> pageList(@Param("page") Map<String, Object> page);
+
 }

@@ -20,6 +20,8 @@ import java.util.Map;
 @RequestMapping(value = "/user")
 public class UserController {
 
+
+
     @Autowired
     private UserService userService;
 
@@ -113,4 +115,5 @@ public class UserController {
         int i = userService.update(user);
         return ApiResult.ok(i);
     }
+
 }
