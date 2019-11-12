@@ -8,6 +8,8 @@ import { Container, Header, Aside, Main } from 'element-ui'
 import { Menu, Submenu, MenuItem, MenuItemGroup, Breadcrumb, BreadcrumbItem } from 'element-ui'
 // 卡片 列表相关
 import { Card, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox,Tag } from 'element-ui'
+// 树形控件
+import { Tree } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Button)
@@ -39,5 +41,6 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 // 消息弹框
+Vue.use(Tree)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

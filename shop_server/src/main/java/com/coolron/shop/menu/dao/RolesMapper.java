@@ -1,6 +1,7 @@
 package com.coolron.shop.menu.dao;
 
 import com.coolron.shop.menu.domain.Roles;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -18,4 +19,7 @@ public interface RolesMapper {
     int updateByPrimaryKey(Roles record);
 
     List<Roles> list();
+
+    @Select("")
+    int deleteRights(Integer roleId, Integer menuId);
 }

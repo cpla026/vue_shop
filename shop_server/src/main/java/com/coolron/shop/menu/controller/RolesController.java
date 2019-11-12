@@ -1,7 +1,6 @@
 package com.coolron.shop.menu.controller;
 
 import com.coolron.shop.common.utils.ApiResult;
-import com.coolron.shop.menu.domain.Menu;
 import com.coolron.shop.menu.domain.Roles;
 import com.coolron.shop.menu.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +44,19 @@ public class RolesController {
     @DeleteMapping("/{id}")
     public ApiResult delete(@PathVariable(value = "id") Integer id){
         int i = rolesService.delete(id);
+        return ApiResult.ok(i);
+    }
+
+    /**
+     * 删除对应角色的权限
+     * @param roleId   角色id
+     * @param rightId  权限id   即菜单id
+     * @return
+     */
+    @DeleteMapping("/{roleId}/{rightId}")
+    public ApiResult deleteRights(@PathVariable(value = "roleId") Integer roleId,
+                                @PathVariable(value = "rightId") Integer rightId){
+        int i = rolesService.deleteRights(roleId, rightId);
         return ApiResult.ok(i);
     }
 

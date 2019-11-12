@@ -36,4 +36,8 @@ public class RolesService {
     public int delete(Integer id) {
          return rolesMapper.deleteByPrimaryKey(id);
     }
+
+    public int deleteRights(Integer roleId, Integer menuId) {
+        return rolesMapper.deleteRights(roleId, menuId);
+    }
 }
