@@ -116,4 +116,17 @@ public class UserController {
         return ApiResult.ok(i);
     }
 
+    /**
+     * 给用户分配角色
+     * @param userId
+     * @param rid
+     * @return
+     */
+    @PutMapping("/{userId}/role")
+    public ApiResult saveRole(@PathVariable(value = "userId") Integer userId,
+                              @RequestBody String rid){
+        //int i = userService.saveRole(userId, rid);
+        return ApiResult.ok(userId + ": " + rid);
+    }
+
 }

@@ -40,4 +40,8 @@ public class RolesService {
     public int deleteRights(Integer roleId, Integer menuId) {
         return rolesMapper.deleteRights(roleId, menuId);
     }
+
+    public int saveRoleRights(Integer roleId, String rids) {
+        return 0;
+    }
 }

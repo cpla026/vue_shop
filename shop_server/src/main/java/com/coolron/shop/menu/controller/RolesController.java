@@ -60,4 +60,17 @@ public class RolesController {
         return ApiResult.ok(i);
     }
 
+    /**
+     * 给对应的角色分配功能
+     * @param roleId  角色id
+     * @param rids 功能id使用 , 拼接字符串
+     * @return
+     */
+    @PostMapping("/{roleId}/rights")
+    public ApiResult saveRoleRights(@PathVariable(value = "roleId") Integer roleId,
+                                @RequestBody String rids){
+        int i = rolesService.saveRoleRights(roleId, rids);
+        return ApiResult.ok(roleId + ": " + rids);
+    }
+
 }
