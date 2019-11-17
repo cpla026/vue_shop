@@ -1,6 +1,5 @@
 package com.coolron.shop.menu.service;
 
-import com.alibaba.fastjson.JSON;
 import com.coolron.shop.menu.dao.MenuMapper;
 import com.coolron.shop.menu.domain.Menu;
 import org.springframework.beans.factory.annotation.Autowired;

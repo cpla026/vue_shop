@@ -1,6 +1,7 @@
 package com.coolron.shop.menu.dao;
 
 import com.coolron.shop.menu.domain.Menu;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface MenuMapper {
 
     @Select("select id, auth_name as authName, pid, path, level, icon from menu ")
     List<Menu> list();
+
+    List<Menu> getMenuByIds(@Param("menuIds") String[] menuIds);
 }

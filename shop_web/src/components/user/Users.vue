@@ -26,14 +26,14 @@
         <!-- 列表区域 -->
         <el-table :data="userList"  border stripe style="width: 100%">
             <!-- 索引列 -->
-            <el-table-column type="index" width="50"></el-table-column>
+            <el-table-column type="index" width="50px"></el-table-column>
             <!-- 字段列 -->
-            <el-table-column prop="username" label="姓名" width="180"></el-table-column>
-            <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
-            <el-table-column prop="mobile" label="电话" width="180"></el-table-column>
-            <el-table-column prop="role_name" label="角色" width="180"></el-table-column>
+            <el-table-column prop="username" label="姓名" width="180px"></el-table-column>
+            <el-table-column prop="email" label="邮箱" width="180px"></el-table-column>
+            <el-table-column prop="mobile" label="电话" width="180px"></el-table-column>
+            <el-table-column prop="role_name" label="角色" width="180px"></el-table-column>
             <!-- Boolean值不可以直接渲染 -->
-            <el-table-column label="状态" width="180">
+            <el-table-column label="状态" width="180px">
                 <!-- 作用域插槽 通过 slot-scope 接收当前作用域的数据 -->
                 <template slot-scope="scope">
                     <!-- scope.row 可以拿到对应行的所有数据 -->
@@ -42,7 +42,7 @@
                     </el-switch>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="190px">
+            <el-table-column label="操作" width="200px">
                 <!-- 对行的操作需要拿到对应列的id 使用作用域插槽 -->
                 <template slot-scope="scope"> 
                     <!-- 修改按钮 -->

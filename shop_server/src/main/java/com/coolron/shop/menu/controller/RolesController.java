@@ -14,9 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("roles")
 public class RolesController {
+
     @Autowired
     private RolesService rolesService;
 
+    /**
+     * 角色列标 包含角色对应的权限(菜单)
+     * @return
+     */
     @GetMapping("/list")
     public ApiResult list(){
         List<Roles> list = rolesService.list();
@@ -61,14 +66,14 @@ public class RolesController {
     }
 
     /**
-     * 给对应的角色分配功能
+     * 给对应的角色分配功能  菜单
      * @param roleId  角色id
      * @param rids 功能id使用 , 拼接字符串
      * @return
      */
-    @PostMapping("/{roleId}/rights")
+    @PostMapping("/{roleId}/rights/{rids}")
     public ApiResult saveRoleRights(@PathVariable(value = "roleId") Integer roleId,
-                                @RequestBody String rids){
+                                    @PathVariable(value = "rids") String rids){
         int i = rolesService.saveRoleRights(roleId, rids);
         return ApiResult.ok(roleId + ": " + rids);
     }

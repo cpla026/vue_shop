@@ -5,7 +5,6 @@ package com.coolron.shop.menu.controller;/**
 import com.alibaba.fastjson.JSON;
 import com.coolron.shop.common.utils.ApiResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -70,7 +69,7 @@ public class RightsController {
                 "                        \"id\": 111,\n" +
                 "                        \"level\": \"1\",\n" +
                 "                        \"path\": \"roles\",\n" +
-                "                        \"pid\": 110\n" +
+                "                        \"pid\": 200\n" +
                 "                    },\n" +
                 "                    {\n" +
                 "                        \"authName\": \"权限列表\",\n" +
@@ -79,11 +78,11 @@ public class RightsController {
                 "                        \"id\": 112,\n" +
                 "                        \"level\": \"1\",\n" +
                 "                        \"path\": \"rights\",\n" +
-                "                        \"pid\": 110\n" +
+                "                        \"pid\": 200\n" +
                 "                    }\n" +
                 "                ],\n" +
                 "                \"icon\": \"el-icon-s-shop\",\n" +
-                "                \"id\": 110,\n" +
+                "                \"id\": 200,\n" +
                 "                \"level\": \"0\",\n" +
                 "                \"path\": \"roles\",\n" +
                 "                \"pid\": 0\n" +
@@ -98,11 +97,11 @@ public class RightsController {
                 "                        \"id\": 121,\n" +
                 "                        \"level\": \"1\",\n" +
                 "                        \"path\": \"users\",\n" +
-                "                        \"pid\": 120\n" +
+                "                        \"pid\": 300\n" +
                 "                    }\n" +
                 "                ],\n" +
                 "                \"icon\": \"el-icon-user-solid\",\n" +
-                "                \"id\": 120,\n" +
+                "                \"id\": 300,\n" +
                 "                \"level\": \"0\",\n" +
                 "                \"path\": \"users\",\n" +
                 "                \"pid\": 0\n" +
@@ -117,11 +116,11 @@ public class RightsController {
                 "                        \"id\": 131,\n" +
                 "                        \"level\": \"1\",\n" +
                 "                        \"path\": \"orders\",\n" +
-                "                        \"pid\": 130\n" +
+                "                        \"pid\": 400\n" +
                 "                    }\n" +
                 "                ],\n" +
                 "                \"icon\": \"el-icon-s-order\",\n" +
-                "                \"id\": 130,\n" +
+                "                \"id\": 400,\n" +
                 "                \"level\": \"0\",\n" +
                 "                \"path\": \"orders\",\n" +
                 "                \"pid\": 0\n" +
@@ -136,11 +135,11 @@ public class RightsController {
                 "                        \"id\": 141,\n" +
                 "                        \"level\": \"1\",\n" +
                 "                        \"path\": \"reports\",\n" +
-                "                        \"pid\": 140\n" +
+                "                        \"pid\": 500\n" +
                 "                    }\n" +
                 "                ],\n" +
                 "                \"icon\": \"el-icon-data-analysis\",\n" +
-                "                \"id\": 140,\n" +
+                "                \"id\": 500,\n" +
                 "                \"level\": \"0\",\n" +
                 "                \"path\": \"reports\",\n" +
                 "                \"pid\": 0\n" +

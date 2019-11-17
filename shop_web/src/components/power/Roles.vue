@@ -45,7 +45,6 @@
                                     </el-col>
                                 </el-row>
                             </el-col>
-                            
 
                         </el-row>
                     </template>
@@ -81,7 +80,7 @@
             @close="setRightDialogColsed">
             <!-- 树形控件 -->
             <el-tree :data="rightsList" :props="treeProps" 
-            show-checkbox node-key="id" default-expand-all="true" 
+            show-checkbox node-key="id" :default-expand-all="true" 
             :default-checked-keys="checkedArr" ref="treeRef"></el-tree>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="setRightDialogVisible = false">取 消</el-button>
@@ -117,7 +116,7 @@ export default {
     methods: {
         // 角色列表
         async getRolelist() {
-            await this.$http.get('roles').then(result => {
+            await this.$http.get('roles/list').then(result => {
                 if(result.data.status === 200) {
                     return this.rolelist = result.data.data
                 }
@@ -158,17 +157,20 @@ export default {
 
             // 保存当前角色id 供保存角色是使用
             this.roleId = node.id
+            this.checkedArr = node.menuIds.split(',');
 
             // 获取所有权限的数据
             await this.$http.get('rights/tree').then(result => {
                 if(result.data.status === 200) {
                     this.rightsList = result.data.data
-                    return console.log(this.rightsList)
+                    return
                 }
             })
 
+            // 获取该角色下有哪些功能(菜单)
+
             // 通过递归获取三级节点的id
-            this.getLeafKeys(node, this.checkedArr)
+            // this.getLeafKeys(node, this.checkedArr)
 
             this.setRightDialogVisible = true
         },
@@ -198,15 +200,17 @@ export default {
             // 拼接成字符串
             const idStr = keys.join(',')
 
-            await this.$http.post(`roles/${this.roleId}/rights`, {rids: idStr}).then(result => {
+            await this.$http.post(`roles/${this.roleId}/rights/` + idStr).then(result => {
                 if(result.data.status === 200) {
-                    return this.$message({type: 'success',message: '权限分配成功!'});
+                    this.$message({type: 'success',message: '权限分配成功!'});
+                    // 关闭对话框
+                    this.setRightDialogVisible = false
+                    // 刷新列表
+                    this.getRolelist()
+                    return 
                 }
                 this.$message.error('权限分配失败')
-                // 刷新列表
-                this.getRolelist()
-                // 关闭对话框
-                this.setRightDialogVisible = false
+                
             })
 
         }

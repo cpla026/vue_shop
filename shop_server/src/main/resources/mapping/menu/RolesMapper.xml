@@ -11,10 +11,34 @@
     id, role_name, role_desc, create_time
   </sql>
 
-  <select id="list" resultMap="BaseResultMap">
+  <insert id="saveRoleRights">
+    INSERT INTO
+    role_menu(role_id, menu_ids)
+    VALUES (#{roleId,jdbcType=INTEGER}, #{menuIds,jdbcType=VARCHAR})
+  </insert>
+
+  <delete id="deleteRoleRights">
+    DELETE FROM role_menu
+    WHERE role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+
+  <resultMap extends="BaseResultMap" id="RoleMenuMap" type="com.coolron.shop.menu.domain.Roles">
+    <result column="menu_ids" jdbcType="VARCHAR" property="menuIds" />
+  </resultMap>
+
+  <select id="list" resultMap="RoleMenuMap">
+    <!--SELECT-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--FROM roles-->
+
     SELECT
-    <include refid="Base_Column_List"/>
-    FROM roles
+    a.id, a.role_name, a.role_desc, a.create_time,
+    b.menu_ids
+    FROM
+    roles a
+    LEFT JOIN role_menu b ON b.role_id = a.id
+    ORDER BY a.id
+
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

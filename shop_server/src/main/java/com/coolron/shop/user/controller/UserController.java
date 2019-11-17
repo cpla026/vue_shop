@@ -20,8 +20,6 @@ import java.util.Map;
 @RequestMapping(value = "/user")
 public class UserController {
 
-
-
     @Autowired
     private UserService userService;
 
@@ -78,7 +76,6 @@ public class UserController {
         pageBean.setPageSize(pageSize); // 每页记录数
 
         return ApiResult.ok(pageBean);
-
     }
 
     @GetMapping("/{id}")
@@ -102,6 +99,7 @@ public class UserController {
     @PutMapping("update/{id}/{mg_state}")
     public ApiResult update(@PathVariable(value = "id") Integer id,
                              @PathVariable(value = "mg_state") Boolean state){
+
         User user = new User();
         user.setId(id);
         user.setMg_state(state);
